@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Site Metas -->
+     <!-- Site Metas -->
+    <title>- My  Cart</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="#" type="{% static 'image/x-icon' %}" />
+    <link rel="apple-touch-icon" href="#" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href= "{% static 'css/bootstrap.min.css' %}" />
+    <!-- Pogo Slider CSS -->
+    <link rel="stylesheet" href="{% static 'css/pogo-slider.min.css' %}"/>
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}"/>
+    
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <style>
+            
+        .example_c {
+        color: #494949 !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #ffffff;
+        padding: 15px;
+        border: 4px solid #494949 !important;
+        display: inline-block;
+        transition: all 0.4s ease 0s;
+        }
+        .example_c:hover {
+        color: #ffffff !important;
+        background: #f6b93b;
+        border-color: #f6b93b !important;
+        transition: all 0.4s ease 0s;
+        }
+        .example_b {
+        color: #fff !important;
+        text-transform: uppercase;
+        text-decoration: none;
+        background: #60a3bc;
+        padding: 20px;
+        border-radius: 50px;
+        display: inline-block;
+        border: none;
+        transition: all 0.4s ease 0s;
+        }
+        .example_b:hover {
+        text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+        -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+        transition: all 0.4s ease 0s;
+        }
+    </style>
+  
+    
+</head>
+
+
+
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" class="modal-title" id="signupModalTitle">Papyrus Registration</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action='/signup/' method='post'>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="username">Username</label>
+						<input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique Username...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="fname">First Name</label>
+						<input type="text" class="form-control" id="fname" name="fname" placeholder="Your First Name Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="lname">Last Name</label>
+						<input type="text" class="form-control" id="lname" name="lname" placeholder="Your Last Name Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="email">Email</label>
+						<input type="email" class="form-control" id="email" name="email" placeholder="Your Email Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="pass1">Password</label>
+						<input type="password" class="form-control" id="pass1" name="pass1" placeholder=" Your Password Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="pass2">Confrim Password</label>
+						<input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password Here...">
+					</div>
+					{% csrf_token %}
+					<button style="font-family: Georgia, 'Times New Roman', Times, sans-serif; " type="submit" class="btn btn-outline-dark">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" class="modal-title" id="loginModalTitle">Papyrus Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action='/login/' method='post'>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="username">Username</label>
+						<input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter Your Username Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="pass">Enter Password</label>
+						<input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder=" Enter Your Password Here...">
+					</div>
+					{% csrf_token %}
+					<button type="submit" class="btn btn-outline-dark">Submit</button>
+					<h1></h1>
+					<h6>Dont have an account?</h6>
+					<li class="nav-item dropdown">
+						<a style="font-family: Georgia, 'Times New Roman', Times, sans-serif; " class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Signup
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a style="font-family: Georgia, 'Times New Roman', Times, sans-serif; " class="dropdown-item" data-toggle="modal" data-target="#signupModal">Signup</a>
+						</div>
+					</li>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<body  id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98" >
+
+    <!-- LOADER -->
+   
+    <!-- end loader -->
+    <!-- END LOADER -->
+    <div>
+    <!-- Start header -->
+    <header class="top-header">
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home" style="color:blue;font-size:150px;">
+                <h1 style="color:orange;font-size:25px;">
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
+                    <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869z"/>
+                    </svg>
+                <b>Papyrus</b>
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+                <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+                </svg>
+                </h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+                    <ul class="navbar-nav">
+                        <li><a class="nav-link active" href="/home">Home</a></li>
+                        <li><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Catagory
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/catagory/school supplies">School Supllies</a>
+                                <a class="dropdown-item" href="/catagory/art and craft">Art and craft</a>
+                                <a class="dropdown-item" href="/catagory/desk essentials">Desk essentials</a>
+                                <a class="dropdown-item" href="/catagory/books">Books</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/sales"> <b>Products with Sales</b></a>
+                           
+                            </div>
+                        </li>
+                        
+						<li><a class="nav-link" href="/contact">Contact</a></li>
+                        
+                        {% if user.is_authenticated %}
+                            <ul class="navbar-nav mr-2 ml-auto">
+                                <li class="nav-item dropdown">
+                                    <a style="font-family: Georgia, 'Times New Roman', Times, sans-serif;color:orange; " class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Welcome {{request.user}}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <a style="font-family: Georgia, 'Times New Roman', Times, sans-serif;color: blue; " class="dropdown-item" href="/logout">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                       
+                        {% else %}
+                        <!-- Button to trigger Login modal -->
+                        <li class="nav-item dropdown">
+                            <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Login
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a  class="dropdown-item" href="/admin">Admin</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#loginModal">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a sclass="dropdown-item" data-toggle="modal" data-target="#signupModal">Signup</a>
+                                
+                            </div>
+                        </li>
+                        {% comment %} <!-- Button to trigger Signup modal -->
+                        <li class="nav-item dropdown">
+                            <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Signup
+                            </a>
+                           
+                        </li> {% endcomment %}
+				{% endif %}
+                        <div>
+							<button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+							sagittis lacus vel augue laoreet rutrum faucibus.">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M11.354 5.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+							<path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+							</svg>Cart
+							</button>
+						</div>
+                    </ul>
+                </div>
+                <div class="search-box">
+                <form method='get' action='/search/' class="form-inline my-2 my-lg-0">
+                    <input type="text" class="search-txt" placeholder="Search" aria-label="Search" name="search" id="search">
+                    <button type="submit" style="background-color: black; border: none;">
+                    <a class="search-btn " >
+                        <img src="{% static 'images/search_icon.png' %}" alt="#" />
+                    </a>
+                    </button>
+                </form>
+
+                </div>
+                
+            </div>
+        </nav>
+        <div>
+			{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{{ message.tags }} alert-dismissible text-center" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<strong>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error{% else %}{{ message.tags|title }}{% endif %}!
+				</strong> {{ message }}
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+
+
+
+    </header>
+    </div>
+    <!-- End header -->
+
+
+<div class="container my-4" style="padding-top: 150px;">
+    <div style="border-style: double; margin-bottom: 100px;">
+        <h1 style=" color: #7c795d; font-family: 'Trocchi', serif; font-size: 90px; font-weight: normal; line-height: 48px; margin: 0; text-align: center;">{{product.category}}</h1>
+        <hr>
+        <h1 style=" font-size: 40px; font-weight: 300; color: #ffcc66; margin: 0 0 24px;  text-align: center;">{{product.subcategory}}</h1>
+    </div>
+    <div class="row">
+    <div class="col-md-4">
+    <div class="row">
+        <img src="/media/{{product.image}}" width="233px" height="385px">
+    </div>
+    <div style="padding:20px 50px 20px 50px">
+         <div class="button_cont" align="center"><a class="example_b" href="/checkout" target="_blank" rel="nofollow noopener" >Buy now</a></div>  
+
+    </div>
+    
+    
+    </div>
+
+    <div class="col-md-8">
+        <h1 style="margin: 1em 0 0.5em 0;
+        color: #343434;
+        font-weight: normal;
+        font-family: 'Ultra', sans-serif;   
+        font-size: 36px;
+        line-height: 42px;
+        text-transform: uppercase;
+        text-shadow: 0 2px white, 0 3px #777;"><b id="name">{{product.product_name}}</b> </h1>
+        {% if product.sale %}
+        <h3 style="color:blue;">product is on {{product.sale}}% sales </h3>
+        <h3 style="color:grey;"><strike>  real price <b>Rs. <span id="realprice"></span></b> </strike></h3>
+        <h2 style="color:red;"><b>Rs.{{product.price}} </b></h2>
+        <h3 style="color:orange;">you saved  <b>Rs. <span id="saveprice"></span></b></h3>
+        
+        {% else %}
+        <h3 style="color:blue;">no sale on this product</h3>
+        <h2 style="color:grey;"><b>Rs.{{product.price}} </b></h2>
+        {% endif %}
+      
+        <h3 style="color:green;">Free delivery within 3 days</h3>
+        <p>{{product.desc}}</p>
+         <div class="row">
+            
+            
+            <div class="button_cont"  align="center" id="ATCid">
+            <button  class="btn btn-primary cart" onclick='createcart()'>Add To Cart</button>
+        
+
+            </a></div>
+        </div>
+
+    </div>
+    
+    </div>
+
+
+</div>
+
+
+
+
+
+	<!-- section -->
+    <div class="section layout_padding padding_bottom-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="heading_main text_align_center">
+						        <h2><span>Contact</span></h2>
+                        </div>
+					          </div>
+                </div>
+			        </div>
+           </div>
+      </div>
+	<!-- end section -->
+	<!-- section -->
+    <div class="section contact_section" style="background:#12385b;">
+        <div class="container">
+               <div class="row">
+                 <div class="col-lg-6 col-md-6 col-sm-12">
+				    <div class="full float-right_img">
+                        <img src="{% static 'images/img10.png' %} " alt="#">
+                    </div>
+                 </div>
+				 <div class="layout_padding col-lg-6 col-md-6 col-sm-12">
+				    <div class="contact_form">
+					    <form action="/contact/" method="post">{% csrf_token %}
+						   <fieldset>
+						       <div class="full field">
+							      <input type="text" placeholder="Your Name" id="name" name="name" />
+							   </div>
+							   <div class="full field">
+							      <input type="email" placeholder="Email Address" id="email" name="email" />
+							   </div>
+							   <div class="full field">
+							      <input type="phn" placeholder="Phone Number" id="phone" name="phone" />
+							   </div>
+							   <div class="full field">
+							      <textarea placeholder="Massage" id="msg"  name="msg"></textarea>
+							   </div>
+							   <div class="full field">
+							      <div class="center" type="submit"><button>Send</button></div>
+							   </div>
+						   </fieldset>
+						</form>
+					</div>
+                 </div>
+               </div>			  
+           </div>
+        </div>
+	<!-- end section -->
+	<div class="map" style="width:100%">
+                <div class="row">
+                   
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d58884.00261809551!2d88.31674019265651!3d22.718941337432046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d22.681846099999998!2d88.3500207!4m5!1s0x39f89b0332447d5b%3A0x783ac24cb2925342!2sgcetts!3m2!1d22.751272699999998!2d88.3534854!5e0!3m2!1sen!2sin!4v1595515312697!5m2!1sen!2sin"height="560" width="100%" style="border:0;" allowfullscreen="True"></iframe>
+                   
+                </div>
+    </div>
+    <!-- Start Footer -->
+    <footer class="footer-box">
+        <div class="container">
+		
+		   <div class="row">
+		   
+		      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+			     <div class="footer_blog">
+				    <div class="full margin-bottom_30">
+					   <h1 style="color:yellow;font-size:50px;"><b>Papyrus</b></h1>
+					 </div>
+					 <div class="full white_fonts">
+					    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip </p>
+					 </div>
+				 </div>
+			  </div>
+			  
+			  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+			       <div class="footer_blog footer_menu white_fonts">
+						    <h3>Quick links</h3>
+						    <ul> 
+							  <li><a href="#">> Join Us</a></li>
+							  <li><a href="#">> Maintenance</a></li>
+							  <li><a href="#">> Language Packs</a></li>
+							  <li><a href="#">> LearnPress</a></li>
+							  <li><a href="#">> Release Status</a></li>
+							</ul>
+						 </div>
+				 </div>
+				 
+				 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+				 <div class="footer_blog full white_fonts">
+						     <h3>Newsletter</h3>
+							 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
+							 <div class="newsletter_form">
+							    <form action="index.html">
+								   <input type="email" placeholder="Your Email" name="#" required />
+								   <button>Submit</button>
+								</form>
+							 </div>
+						 </div>
+					</div>	 
+			  
+			  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+				 <div class="footer_blog full white_fonts">
+						     <h3>Contact us</h3>
+							 <ul class="full">
+							   <li><img src="{% static 'images/i5.png' %} "><span><li>12, William Carey Sarani, Maniktala,</li>
+                                <li> Serampore, West Bengal 712201 </li></span></li>
+							   <li><img src="{% static 'images/i6.png' %} "><span>papyrus@gmail.com</span></li>
+							   <li><img src="{% static 'images/i7.png' %} "><span>853211000</span></li>
+							 </ul>
+						 </div>
+					</div>	 
+			  
+		   </div>
+		
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <div class="footer_bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="crp">© Copyrights 2019 design by html.design</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="scroll-to-top" class="hvr-radial-out"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- ALL PLUGINS -->
+    <script src=" {% static 'js/jquery.magnific-popup.min.js' %} "></script>
+    <script src="{% static 'js/jquery.pogo-slider.min.js' %} "></script>
+    <script src="{% static 'js/slider-index.js' %} "></script>
+    <script src="{% static 'js/smoothscroll.js' %} "></script>
+    <script src="{% static 'js/form-validator.min.js' %} "></script>
+    <script src="{% static 'js/contact-form-script.js' %} "></script>
+    <script src="{% static 'js/isotope.min.js' %} "></script>
+    <script src="{% static 'js/images-loded.min.js' %} "></script>
+        
+    <script>
+
+    let current_price={{product.price}};
+    let sale_pr={{product.sale}};
+    var real_price=Math.floor(100*current_price/(100-sale_pr));
+
+    var save_price = Math.floor(real_price - current_price);
+
+    if(save_price!=0){
+
+        document.getElementById('saveprice').innerHTML = save_price;
+
+        document.getElementById('realprice').innerHTML = real_price;
+
+    }
+
+
+    </script>
+    <script>
+
+    if (localStorage.getItem('cart') == null) {
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        
+    }
+    for (var item in cart) {
+            var pid = item.slice(2);
+            var a=String({{product.id}});
+            if({{product.id}}==pid){
+            document.getElementById('ATCid').innerHTML = "<button id='minus " + 'pr' + a + "' class='btn btn-primary minus' onclick='MinusFunction()'>-</button> <span id='val" + 'pr' + a + "''>" + cart['pr' + a][0] + "</span> <button id='plus" + 'pr' + a + "' class='btn btn-primary plus' onclick='PlusFunction()'> + </button>";
+            
+            break;   
+            }else{
+            
+            document.getElementById('ATCid').innerHTML = "<button  class='btn btn-primary cart' onclick='createcart()' >Add To Cart</button>";
+            
+            }
+    }
+    function MinusFunction() {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        var a=String({{product.id}});
+        cart['pr' + a][0] = cart['pr' + a][0] - 1;
+        cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        if(cart['pr' + a][0]==0){
+            document.getElementById('ATCid').innerHTML = "<button  class='btn btn-primary cart'  onclick='createcart()'>Add To Cart</button>"; 
+            }else{
+                document.getElementById('ATCid').innerHTML = "<button id='minus " + 'pr' + a + "' class='btn btn-primary minus' onclick='MinusFunction()'>-</button> <span id='val" + 'pr' + a + "''>" + cart['pr' + a][0] + "</span> <button id='plus" + 'pr' + a + "' class='btn btn-primary plus' onclick='PlusFunction()'> + </button>";
+            }
+
+    }
+    function PlusFunction() {
+        cart = JSON.parse(localStorage.getItem('cart'));
+        var a=String({{product.id}});
+        cart['pr' + a][0] = cart['pr' + a][0] + 1;
+        cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        document.getElementById('ATCid').innerHTML = "<button id='minus " + 'pr' + a + "' class='btn btn-primary minus' onclick='MinusFunction()'>-</button> <span id='val" + 'pr' + a + "''>" + cart['pr' + a][0] + "</span> <button id='plus" + 'pr' + a + "' class='btn btn-primary plus' onclick='PlusFunction()'> + </button>";
+
+    }
+    function createcart(){
+        if (localStorage.getItem('cart') == null) {
+        var cart = {};
+        } else {
+            cart = JSON.parse(localStorage.getItem('cart'));
+            
+        }
+        
+        var a=String({{product.id}});
+        if (cart['pr' + a] != undefined) {
+        
+        } else {
+            qty = 0;
+            name = document.getElementById('name').innerHTML;
+            price = {{product.price}};
+            cart['pr' + a] = [qty,name, parseInt(price)];
+
+        }
+        localStorage.setItem('cart', JSON.stringify(cart));
+        PlusFunction();
+
+    }
+    </script> 
+    <script src="{% static 'js/custom.js' %} "></script>
+
+
+<script>
+	/* counter js */
+
+(function ($) {
+	$.fn.countTo = function (options) {
+		options = options || {};
+		
+		return $(this).each(function () {
+			// set options for current element
+			var settings = $.extend({}, $.fn.countTo.defaults, {
+				from:            $(this).data('from'),
+				to:              $(this).data('to'),
+				speed:           $(this).data('speed'),
+				refreshInterval: $(this).data('refresh-interval'),
+				decimals:        $(this).data('decimals')
+			}, options);
+			
+			// how many times to update the value, and how much to increment the value on each update
+			var loops = Math.ceil(settings.speed / settings.refreshInterval),
+				increment = (settings.to - settings.from) / loops;
+			
+			// references & variables that will change with each update
+			var self = this,
+				$self = $(this),
+				loopCount = 0,
+				value = settings.from,
+				data = $self.data('countTo') || {};
+			
+			$self.data('countTo', data);
+			
+			// if an existing interval can be found, clear it first
+			if (data.interval) {
+				clearInterval(data.interval);
+			}
+			data.interval = setInterval(updateTimer, settings.refreshInterval);
+			
+			// initialize the element with the starting value
+			render(value);
+			
+			function updateTimer() {
+				value += increment;
+				loopCount++;
+				
+				render(value);
+				
+				if (typeof(settings.onUpdate) == 'function') {
+					settings.onUpdate.call(self, value);
+				}
+				
+				if (loopCount >= loops) {
+					// remove the interval
+					$self.removeData('countTo');
+					clearInterval(data.interval);
+					value = settings.to;
+					
+					if (typeof(settings.onComplete) == 'function') {
+						settings.onComplete.call(self, value);
+					}
+				}
+			}
+			
+			function render(value) {
+				var formattedValue = settings.formatter.call(self, value, settings);
+				$self.html(formattedValue);
+			}
+		});
+	};
+	
+	$.fn.countTo.defaults = {
+		from: 0,               // the number the element should start at
+		to: 0,                 // the number the element should end at
+		speed: 1000,           // how long it should take to count between the target numbers
+		refreshInterval: 100,  // how often the element should be updated
+		decimals: 0,           // the number of decimal places to show
+		formatter: formatter,  // handler for formatting the value before rendering
+		onUpdate: null,        // callback method for every time the element is updated
+		onComplete: null       // callback method for when the element finishes updating
+	};
+	
+	function formatter(value, settings) {
+		return value.toFixed(settings.decimals);
+	}
+}(jQuery));
+
+jQuery(function ($) {
+  // custom formatting example
+  $('.count-number').data('countToOptions', {
+	formatter: function (value, options) {
+	  return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+	}
+  });
+  
+  // start all the timers
+  $('.timer').each(count);  
+  
+  function count(options) {
+	var $this = $(this);
+	options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+	$this.countTo(options);
+  }
+});
+</script>
+
+
+</body>
+
+</html>

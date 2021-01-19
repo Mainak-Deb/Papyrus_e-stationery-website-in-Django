@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}about{% endblock title %}
+{% block css %}
+         body {
+            font-family: Arial, Helvetica, sans-serif;
+            color:yellow;
+            margin: 0;
+        }
+
+        html {
+            box-sizing: border-box;
+        }
+
+        *,
+        *:before,
+        *:after {
+            box-sizing: inherit;
+        }
+
+        .column {
+            float: left;
+            width: 33.3%;
+            margin-bottom: 16px;
+            padding: 0 8px;
+        }
+
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            margin: 8px;
+        }
+
+        .about-section {
+            padding: 80px;
+            text-align: center;
+            font-size: 100px;
+            background-color:rgb(255, 165, 0);
+            color: yellow;
+        }
+
+        .container {
+            padding: 0 16px;
+        }
+
+        .container::after,
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .title {
+            color: grey;
+        }
+
+        .button {
+            border: none;
+            outline: 0;
+            display: inline-block;
+            padding: 8px;
+            color: white;
+            background-color: #000;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .button:hover {
+            background-color: #555;
+        }
+
+        @media screen and (max-width: 650px) {
+            .column {
+                width: 100%;
+                display: block;
+            }
+        about-slide{
+                font-size=30px;
+                color=yellow;
+            }
+        }{% endblock css%}
+
+
+{% block body %}
+{% load static %}
+    <!-- Start Banner -->
+
+    <div class="about-section" >
+        <h1 style="font-family: Georgia, 'Times New Roman', Times, serif;color:blue;">About Us</h1>
+        <p>Papyrus is a online staionery company working closely together to build success..</p>
+        <p>Our aim is to grow through teamwork, respect, honesty, customer satisfaction and trust.</p>
+        <p>We have one vision: A, B and C.</p>
+        <p>A is for Action</p>
+        <p>B is for Business</p>
+        <p>C is for Customer Satisfaction</p>
+        <p>Our manufacturers are based in India. We have an extensive range of products from pens, pencils, colouring
+            sets, play Dough, children’s crafts and lots more, all of which are suitable for use at home, nurseries,
+            schools, offices, businesses of all sectors.The quality of our products gives them the power to grow.We will
+            be offering wholesalers, retailers and any entrepreneurs our services.For further information on all our
+            products view the item description for full specification.
+        </p>
+        <p> </p>
+        <p>Papyrus will happily take you through the range.</p>
+        <p> </p>
+        <p>So come on in, experiment, explore, poke, prod and play, because a visit to ourstores is just like a hug from
+            your best friend.</p>
+    </div>
+
+    
+    <!-- End Banner -->
+    
+
+    <h2 style=" text-align:center;font-family: 'Times New Roman', Times, serif; text-decoration: underline;">Our Team</h2>
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <img src="" alt="" style="width:100%">
+                <div class="container">
+                    <h2 style="font-family: Georgia, 'Times New Roman', Times, serif;color:midnightblue">Mainak
+                        Deb</h2>
+                    <p class="title">Fullstack developer</p>
+                    
+                    <p>MD19@gmail.com</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="" alt="" style="width:100%">
+                <div class="container">
+                    <h2 style="font-family:Georgia, 'Times New Roman', Times, serif;color:midnightblue;">Himadri
+                        Malik</h2>
+                    <p class="title">Producr manager</p>
+                    
+                    <p>HMbally@gmail.com</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <div class="card">
+                <img src="" alt="" style="width:100%">
+                <div class="container">
+                    <h2 style="font-family:Georgia, 'Times New Roman', Times, serif;color:midnightblue;">Pritha
+                        Bhandari</h2>
+                    <p class="title">Frontend developer</p>
+                    
+                    <p>PB19@gmail.com</p>
+                    <p><button class="button">Contact</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+

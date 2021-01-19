@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<!-- Basic -->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <!-- Site Metas -->
+    <title>Papyrus</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="#" type="{% static 'image/x-icon' %}" />
+    <link rel="apple-touch-icon" href="#" />
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href= "{% static 'css/bootstrap.min.css' %}" />
+    <!-- Pogo Slider CSS -->
+    <link rel="stylesheet" href="{% static 'css/pogo-slider.min.css' %}"/>
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}"/>
+    
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+    .col-md-3
+          {
+          display: inline-block;
+          margin-left:-4px;
+          }
+
+          .carousel-indicators .active {
+          background-color: blue;
+          color=yellow
+            }
+
+          .col-md-3 img{
+
+          width: 170px;
+          height: 200px;
+          }
+
+          body .carousel-indicator li{
+          background-color: blue;
+          }
+
+          body .carousel-indicators{
+          bottom: 0;
+          }
+
+          body .carousel-control-prev-icon,
+          body .carousel-control-next-icon{
+          
+          height: 50px;
+          width: 50px;
+          outline: black;
+          background-color: rgba(0, 0, 0, 0.7);
+          background-size: 50%, 50%;
+          border-radius: 50%;
+          border: 1px solid black;
+          color: red;
+          }
+
+          .carousel-control-prev,
+          .carousel-control-next{
+          top: auto;
+          bottom: auto;
+          padding-top: 222px;
+          }
+           body .no-padding{
+           padding-left: 0,
+           padding-right: 0;
+        body{
+		
+		background: url(https://d5a9s4m4.stackpathcdn.com/wp-content/uploads/2016/03/11638956-seamless-flower-paisley-design-background-Stock-Vector-pattern-350x350.jpg);
+        }
+    </style>
+    <style>
+        #loading {
+            position:fixed;
+            width:100%;
+            height:100%;
+            background-color: #ffffff;
+            background-image: url("{% static 'images/loader.gif' %}");
+            background-repeat: no-repeat;
+            background-position: center;
+          
+            Z-index=9999;
+        }
+
+        
+    </style>
+</head>
+
+
+
+
+
+
+
+<div class="modal fade" id="signupModal" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" class="modal-title" id="signupModalTitle">Papyrus Registration</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action='/signup/' method='post'>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="username">Username</label>
+						<input type="text" class="form-control" id="username" name="username" placeholder="Choose a unique Username...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="fname">First Name</label>
+						<input type="text" class="form-control" id="fname" name="fname" placeholder="Your First Name Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="lname">Last Name</label>
+						<input type="text" class="form-control" id="lname" name="lname" placeholder="Your Last Name Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="email">Email</label>
+						<input type="email" class="form-control" id="email" name="email" placeholder="Your Email Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="pass1">Password</label>
+						<input type="password" class="form-control" id="pass1" name="pass1" placeholder=" Your Password Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="pass2">Confrim Password</label>
+						<input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password Here...">
+					</div>
+                   <div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="address">Address</label>
+						<input type="text" class="form-control" id="address" name="address" placeholder="Your Address Here...">
+					</div>
+
+
+					{% csrf_token %}
+					<button style="font-family: Georgia, 'Times New Roman', Times, sans-serif; " type="submit" class="btn btn-outline-dark">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" class="modal-title" id="loginModalTitle">Papyrus Login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form action='/login/' method='post'>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="username">Username</label>
+						<input type="text" class="form-control" id="loginusername" name="loginusername" placeholder="Enter Your Username Here...">
+					</div>
+					<div class="form-group">
+						<label style="font-family: Georgia, 'Times New Roman', Times, sans-serif; color:
+				#17202A ;" for="pass">Enter Password</label>
+						<input type="password" class="form-control" id="loginpassword" name="loginpassword" placeholder=" Enter Your Password Here...">
+					</div>
+					{% csrf_token %}
+					<button type="submit" class="btn btn-outline-dark">Submit</button>
+					<h1></h1>
+					<h6>Dont have an account?</h6>
+					<li class="nav-item dropdown">
+						<a style="font-family: Georgia, 'Times New Roman', Times, sans-serif; " class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							Signup
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a style="font-family: Georgia, 'Times New Roman', Times, sans-serif; " class="dropdown-item" data-toggle="modal" data-target="#signupModal">Signup</a>
+						</div>
+					</li>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<body  id="home" data-spy="scroll" data-target="#navbar-wd" data-offset="98" >
+
+    <!-- LOADER -->
+   
+    <!-- end loader -->
+    <!-- END LOADER -->
+
+    <!-- Start header -->
+    <header class="top-header">
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/home" style="color:blue;font-size:150px;">
+                <h1 style="color:orange;font-size:25px;">
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-book-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
+                    <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869z"/>
+                    </svg>
+                <b>Papyrus</b>
+                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-pencil" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+                <path fill-rule="evenodd" d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+                </svg>
+                </h1>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-wd" aria-controls="navbar-wd" aria-expanded="false" aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbar-wd">
+                    <ul class="navbar-nav">
+                        <li><a class="nav-link active" href="/home">Home</a></li>
+                        <li><a class="nav-link" href="/about">About</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Catagory
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/catagory/school supplies">School Supllies</a>
+                                <a class="dropdown-item" href="/catagory/art and craft">Art and craft</a>
+                                <a class="dropdown-item" href="/catagory/desk essentials">Desk essentials</a>
+                                <a class="dropdown-item" href="/catagory/books">Books</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/sales"> <b>Products with Sales</b></a>
+                            </div>
+                        </li>
+                        
+						<li><a class="nav-link" href="/contact">Contact</a></li>
+                        
+                        {% if user.is_authenticated %}
+                            <ul class="navbar-nav mr-2 ml-auto">
+                                <li class="nav-item dropdown">
+                                    <a style="font-family: Georgia, 'Times New Roman', Times, sans-serif;color:orange; " class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Welcome {{request.user}}
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <form method='get' action='/tracker/' >
+                                       <input type="hidden" name="usertracker" id="usertracker"  value="{{request.user}}">
+                                        <button type="submit" style="background-color: white; border: none;">
+                                        Track order
+                                        </button>
+                                    </form>
+                                     <div class="dropdown-divider"></div>
+                                        <a style="font-family: Georgia, 'Times New Roman', Times, sans-serif;color: blue; " class="dropdown-item" href="/logout">Logout</a>
+                                    </div>
+                                </li>
+                            </ul>
+                       
+                        {% else %}
+                        <!-- Button to trigger Login modal -->
+                        <li class="nav-item dropdown">
+                        
+                            <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Login
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a  class="dropdown-item" href="/admin">Admin</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" data-toggle="modal" data-target="#loginModal">User</a>
+                                <div class="dropdown-divider"></div>
+                                <a sclass="dropdown-item" data-toggle="modal" data-target="#signupModal">Signup</a>
+                                
+                            </div>
+                        </li>
+                        {% comment %} <!-- Button to trigger Signup modal -->
+                        <li class="nav-item dropdown">
+                            <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Signup
+                            </a>
+                           
+                        </li> {% endcomment %}
+				{% endif %}
+                        <div>
+							<button type="button" class="btn btn-secondary mx-2" id="popcart" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Vivamus
+							sagittis lacus vel augue laoreet rutrum faucibus.">
+							<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-cart-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+							<path fill-rule="evenodd" d="M11.354 5.646a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L8 8.293l2.646-2.647a.5.5 0 0 1 .708 0z"/>
+							<path fill-rule="evenodd" d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm7 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+							</svg>Cart(<span id="cart">0</span>)
+							</button>
+						</div>
+                    </ul>
+                </div>
+                <div class="search-box">
+                <form method='get' action='/search/' class="form-inline my-2 my-lg-0">
+                    <input type="text" class="search-txt" placeholder="Search" aria-label="Search" name="search" id="search">
+                    <button type="submit" style="background-color: black; border: none;">
+                    <a class="search-btn " >
+                        <img src="{% static 'images/search_icon.png' %}" alt="#" />
+                    </a>
+                    </button>
+                </form>
+
+                </div>
+                
+            </div>
+        </nav>
+        <div>
+			{% if messages %}
+			{% for message in messages %}
+			<div class="alert alert-{{ message.tags }} alert-dismissible text-center" role="alert">
+				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+				</button>
+				<strong>{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Error{% else %}{{ message.tags|title }}{% endif %}!
+				</strong> {{ message }}
+			</div>
+			{% endfor %}
+			{% endif %}
+		</div>
+
+
+
+    </header>
+    <!-- End header -->
+
+    <!-- Start Banner -->
+    <div class="ulockd-home-slider">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="pogoSlider" id="js-main-slider">
+                    <div class="pogoSlider-slide" style="background-image:url({% static 'images/banner_img.png' %} );">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="slide_text">
+                                        <h3><span span class="theme_color">A Papyrus A Day Helps You Work, Rest And Play.</span><br>you can buy anything</h3>
+                                        <h4>Free delivery</h4>
+                                        <br>
+                                        <h4 style="color:orange;">shopping with sales</h4>
+                                        <div class="full center">
+                                        
+										    <a class="contact_bt" href="/sales">Click here!</a>
+										</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pogoSlider-slide" style="background-image:url({% static 'images/banner_img.png' %} );">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="slide_text">
+                                        <h3><span span class="theme_color">Love Shopping Again with Papyrus
+                                        <br>
+                                        <h4>products  with sales</h4>
+                                        
+
+                                        <div class="full center">
+                                        
+										    <a class="contact_bt" href="/sales">Click here!</a>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- .pogoSlider -->
+            </div>
+        </div>
+    </div>
+    <!-- End Banner -->
+    <!-- section -->
+	<div class="section tabbar_menu">
+	   <div class="container">
+	      <div class="row">
+		      <div class="col-md-12">
+			     <div class="tab_menu">
+				    <ul>
+					   <li><a href="#"><span class="icon"><img src="{% static 'images/i1.png' %} " alt="#" /></span><span>Education</span></a></li>
+					   <li><a href="#"><span class="icon"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-book-half" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M12.786 1.072C11.188.752 9.084.71 7.646 2.146A.5.5 0 0 0 7.5 2.5v11a.5.5 0 0 0 .854.354c.843-.844 2.115-1.059 3.47-.92 1.344.14 2.66.617 3.452 1.013A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.276-.447L15.5 2.5l.224-.447-.002-.001-.004-.002-.013-.006-.047-.023a12.582 12.582 0 0 0-.799-.34 12.96 12.96 0 0 0-2.073-.609zM15 2.82v9.908c-.846-.343-1.944-.672-3.074-.788-1.143-.118-2.387-.023-3.426.56V2.718c1.063-.929 2.631-.956 4.09-.664A11.956 11.956 0 0 1 15 2.82z"/>
+                        <path fill-rule="evenodd" d="M3.214 1.072C4.813.752 6.916.71 8.354 2.146A.5.5 0 0 1 8.5 2.5v11a.5.5 0 0 1-.854.354c-.843-.844-2.115-1.059-3.47-.92-1.344.14-2.66.617-3.452 1.013A.5.5 0 0 1 0 13.5v-11a.5.5 0 0 1 .276-.447L.5 2.5l-.224-.447.002-.001.004-.002.013-.006a5.017 5.017 0 0 1 .22-.103 12.958 12.958 0 0 1 2.7-.869z"/>
+                        </svg></span><span>Books</span></a></li>
+					   <li><a href="#"><span class="icon"><svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-pen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M5.707 13.707a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391L10.086 2.5a2 2 0 0 1 2.828 0l.586.586a2 2 0 0 1 0 2.828l-7.793 7.793zM3 11l7.793-7.793a1 1 0 0 1 1.414 0l.586.586a1 1 0 0 1 0 1.414L5 13l-3 1 1-3z"/>
+                        <path fill-rule="evenodd" d="M9.854 2.56a.5.5 0 0 0-.708 0L5.854 5.855a.5.5 0 0 1-.708-.708L8.44 1.854a1.5 1.5 0 0 1 2.122 0l.293.292a.5.5 0 0 1-.707.708l-.293-.293z"/>
+                        <path d="M13.293 1.207a1 1 0 0 1 1.414 0l.03.03a1 1 0 0 1 .03 1.383L13.5 4 12 2.5l1.293-1.293z"/>
+                        </svg></span><span>Stationery</span></a></li>
+					   <li><a href="#"><span class="icon"><img src="{% static 'images/i4.png' %} " alt="#" /></span><span>Office</span></a></li>
+					   <li><a href="#"><span class="icon"><img src="{% static 'images/i5.png' %} " alt="#" /></span><span>Location</span></a></li>
+					   <li><a href="#"><span class="icon"><img src="{% static 'images/i7.png' %} " alt="#" /></span><span>Call us</span></a></li>
+					   <li><a href="#"><span class="icon"><img src= "{% static 'images/i6.png' %} " alt="#" /></span><span>Email</span></a></li>
+					</ul>
+				 </div>
+			  </div>
+		  </div>
+	   </div>
+	</div>
+	<!-- end section -->
+	
+	<!-- end section -->
+	<!-- section -->
+    <div class="section layout_padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="heading_main text_align_center">
+						   <h2><span>OUR</span>CATAGORIES</h2>
+                        </div>
+					  </div>
+                </div>
+				<div class="col-md-4">
+                    <div class="full blog_img_popular">
+                        <a href="/catagory/school supplies">
+                            <img class="img-responsive link" src="{% static 'images/p1.jpg' %}" alt="#" /> 
+                        </a>
+                       
+					   <h4>School supplies</h4>
+                    </div>
+                </div>
+				<div class="col-md-4">
+                    <div class="full blog_img_popular">
+                        <a href="/catagory/art and craft">
+                        <img class="img-responsive" src="{% static 'images/p2.jpg' %}" alt="#" />
+						<h4>Art and craft</h4>
+                        </a>
+                    </div>
+                </div>
+				<div class="col-md-4">
+                    <div class="full blog_img_popular">
+                        <a href="/catagory/desk essentials">
+                        <img class="img-responsive" src="{% static 'images/p3.jpg' %}" alt="#" />
+						<h4>Desk essentials</h4>
+                        </a>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="full blog_img_popular">
+                        <a href="/catagory/books">
+                        <img class="img-responsive" src="{% static 'images/p4.jpg' %}" alt="#" />
+						<h4>Books</h4>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	<!-- end section -->
+	<!-- section -->
+    <div class="section margin-top_50 silver_bg">
+        <div class="container">
+            <div class="row">
+			    <div class="col-md-6">
+                    <div class="full float-right_img">
+                        <img src="{% static 'images\img6.jpg' %} " alt="#" />
+                    </div>
+                </div>
+                <div class="col-md-6 layout_padding_2">
+                    <div class="full">
+                        <div class="heading_main text_align_left">
+						   <h2><span>About us</h2>
+                        </div>
+						<div class="full">
+						  <p>Papyrus is a online staionery company working closely together to build success..
+                            Our aim is to grow through teamwork, respect, honesty, customer satisfaction and trust.
+                            We have one vision: A, B and C.</p>
+                            <p>A is for Action</p>
+                            <p>B is for Business</p>
+                            <p>C is for Customer Satisfaction</p>
+                            <p>Papyrus will happily take you through the range.So come on in, experiment, explore, poke, prod and play, because a visit to ourstores is just like a hug from your best friend.</p>
+                       
+						</div>
+						<div class="full">
+						   <a class="hvr-radial-out button-theme" href="/about">About</a>
+						</div>
+                    </div>
+                </div>
+			</div>
+        </div>
+    </div>
+	<!-- end section -->
+	
+	<!-- end section -->
+	
+  <!--start-->
+  <div class="container">
+
+    <!--Slideshow starts here -->
+    {% for product, range, nSlides in allProds %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="full">
+                <div class="heading_main text_align_center">
+                    <h2><span style="text-transform: uppercase;">{{product.0.category}} </span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+<div id="demo{{forloop.counter}}" class="col carousel slide my-3" data-ride="carousel">
+    <ul class="carousel-indicators">
+      <li data-target="#demo{{forloop.counter}}" data-slide-to="0" class="active"></li>
+
+       {% for i in range %}
+      <li data-target="#demo{{forloop.parentloop.counter}}" data-slide-to="{{i}}" ></li>
+      {% endfor %}
+    </ul>
+
+
+    <div class="container carousel-inner no-padding">
+
+      <div class="carousel-item active">
+
+
+        {% for i in product %}
+                <div class="col-xs-3 col-sm-3 col-md-3">
+                    <div class="full blog_img_popular " >
+                    <div class="card align-items-center">
+                   <img src='/media/{{i.image}}' class="card-img-top" alt="...">
+                   </div>
+                    <h4 class="card-title" id="namepr{{i.id}}" >{{i.product_name|slice:"0:15"}}...</h4>
+                    <p class="card-text" >{{i.desc|slice:"0:53"}}...</p>
+                    {% if i.sale %}
+                        <h3 class="card-title" style="color:green;">Price: <span id="pricepr{{i.id}}">{{i.price}} Rs.</span>   <span style="color:red;font-size: 15px;text-align: rightr;">  <i>{{i.sale}}% sale</i> </span> </h3> 
+                    {% else %}
+                        <h3 class="card-title" style="color:green;">Price: <span id="pricepr{{i.id}}">{{i.price}} Rs.</span></h3> 
+                    {% endif %}                           
+                    <span id="divpr{{i.id}}" class="divpr">
+                                    <button id="pr{{i.id}}" class="btn btn-primary cart">Add To Cart</button>
+                    </span>
+
+                    <a href="/products/{{i.id}}"><button id="qv{{i.id}}" class="btn btn-warning">View</button></a>
+                    </div>
+                </div>                      
+        {% if forloop.counter|divisibleby:4 and forloop.counter > 0 and not forloop.last %}
+      </div><div class="carousel-item">
+        {% endif %}
+
+        {% endfor %}
+    </div>
+
+
+
+</div>
+</div>
+    <!-- left and right controls for the slide -->
+    <a class="carousel-control-prev" href="#demo{{forloop.counter}}" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </a>
+    <a class="carousel-control-next" href="#demo{{forloop.counter}}" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </a>
+        </div>
+    {% endfor %}
+</div>
+  <!--end-->
+	<!-- section -->
+    <div class="section layout_padding padding_bottom-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <div class="heading_main text_align_center">
+						   <h2><span>Contact</span></h2>
+                        </div>
+					  </div>
+                </div>
+			  </div>
+           </div>
+        </div>
+	<!-- end section -->
+	<!-- section -->
+    <div class="section contact_section" style="background:#12385b;">
+        <div class="container">
+               <div class="row">
+                 <div class="col-lg-6 col-md-6 col-sm-12">
+				    <div class="full float-right_img">
+                        <img src="{% static 'images/img10.png' %} " alt="#">
+                    </div>
+                 </div>
+				 <div class="layout_padding col-lg-6 col-md-6 col-sm-12">
+				    <div class="contact_form">
+					    <form action="/contact/" method="post">{% csrf_token %}
+						   <fieldset>
+						       <div class="full field">
+							      <input type="text" placeholder="Your Name" id="name" name="name" />
+							   </div>
+							   <div class="full field">
+							      <input type="email" placeholder="Email Address" id="email" name="email" />
+							   </div>
+							   <div class="full field">
+							      <input type="phn" placeholder="Phone Number" id="phone" name="phone" />
+							   </div>
+							   <div class="full field">
+							      <textarea placeholder="Massage" id="msg"  name="msg"></textarea>
+							   </div>
+							   <div class="full field">
+							      <div class="center" type="submit"><button>Send</button></div>
+							   </div>
+						   </fieldset>
+						</form>
+						</form>
+					</div>
+                 </div>
+               </div>			  
+           </div>
+        </div>
+	<!-- end section -->
+    <div class="map" style="width:100%">
+                <div class="row">
+                   
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m26!1m12!1m3!1d58884.00261809551!2d88.31674019265651!3d22.718941337432046!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m11!3e6!4m3!3m2!1d22.681846099999998!2d88.3500207!4m5!1s0x39f89b0332447d5b%3A0x783ac24cb2925342!2sgcetts!3m2!1d22.751272699999998!2d88.3534854!5e0!3m2!1sen!2sin!4v1595515312697!5m2!1sen!2sin"height="560" width="100%" style="border:0;" allowfullscreen="True"></iframe>
+                   
+                </div>
+    </div>
+    <!-- Start Footer -->
+    <footer class="footer-box">
+        <div class="container">
+		
+		   <div class="row">
+		   
+		      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+			     <div class="footer_blog">
+				    <div class="full margin-bottom_30">
+					   <h1 style="color:yellow;font-size:50px;"><b>Papyrus</b></h1>
+					 </div>
+					 <div class="full white_fonts">
+					    <p>Founded in 2020, Papyrus is a vision to inspire and instil motivation in your daily life.
+							Team Papyrus works hard to bring out the best we can. For YOU. </p>
+					 </div>
+				 </div>
+			  </div>
+			  
+			  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+			       <div class="footer_blog footer_menu white_fonts">
+						    <h3>Quick links</h3>
+						    <ul> 
+							  <li><a href="#">> Join Us</a></li>
+							  <li><a href="#">> Maintenance</a></li>
+							  <li><a href="#">> Language Packs</a></li>
+							  <li><a href="#">> LearnPress</a></li>
+							  <li><a href="#">> Release Status</a></li>
+							</ul>
+						 </div>
+				 </div>
+				 
+				 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+				 <div class="footer_blog full white_fonts">
+						     <h3>Newsletter</h3>
+							 <p>Subscribe to receive updates, access to exclusive deals, and more.
+
+                            </p>
+							 <div class="newsletter_form">
+							    <form action="index.html">
+								   <input type="email" placeholder="Your Email" name="#" required />
+								   <button>Submit</button>
+								</form>
+							 </div>
+						 </div>
+					</div>	 
+			  
+			  <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3">
+				 <div class="footer_blog full white_fonts">
+						     <h3>Contact us</h3>
+							 <ul class="full">
+							   <li><img src="{% static 'images/i5.png' %} "><span><li>12, William Carey Sarani, Maniktala,</li>
+                                <li> Serampore, West Bengal 712201 </li></span></li>
+							   <li><img src="{% static 'images/i6.png' %} "><span>papyrus@gmail.com</span></li>
+							   <li><img src="{% static 'images/i7.png' %} "><span>853211000</span></li>
+							 </ul>
+						 </div>
+					</div>	 
+			  
+		   </div>
+		
+        </div>
+    </footer>
+    <!-- End Footer -->
+
+    <div class="footer_bottom">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <p class="crp">© Copyrights 2019 design by html.design</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="#" id="scroll-to-top" class="hvr-radial-out"><i class="fa fa-angle-up"></i></a>
+
+    <!-- ALL JS FILES -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- ALL PLUGINS -->
+    <script src=" {% static 'js/jquery.magnific-popup.min.js' %} "></script>
+    <script src="{% static 'js/jquery.pogo-slider.min.js' %} "></script>
+    <script src="{% static 'js/slider-index.js' %} "></script>
+    <script src="{% static 'js/smoothscroll.js' %} "></script>
+    <script src="{% static 'js/form-validator.min.js' %} "></script>
+    <script src="{% static 'js/contact-form-script.js' %} "></script>
+    <script src="{% static 'js/isotope.min.js' %} "></script>
+    <script src="{% static 'js/images-loded.min.js' %} "></script>
+    
+    <script src="{% static 'js/custom.js' %} "></script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+<script>
+
+{% if msg|length != 0 %}
+alert('{{msg}}');
+window.location.href = "/"
+{% endif %}
+
+// Find out the cart items from localStorage
+if (localStorage.getItem('cart') == null) {
+    var cart = {};
+    var swich=0;
+} else {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    updateCart(cart);
+    var swich=1;
+}
+
+// If the add to cart button is clicked, add/increment the item
+//$('.cart').click(function() {
+    $('.divpr').on('click', 'button.cart', function(){
+    var idstr = this.id.toString();
+    if (cart[idstr] != undefined) {
+        qty = cart[idstr][0] + 1;
+    } else {
+        qty = 1;
+        name = document.getElementById('name'+idstr).innerHTML;
+        price = document.getElementById('price'+idstr).innerHTML;
+        cart[idstr] = [qty, name, parseInt(price)];
+
+    }
+    updateCart(cart);
+
+});
+
+//Add Popover to cart
+$('#popcart').popover();
+updatePopover(cart);
+
+function updatePopover(cart) {
+    
+    console.log('We are inside updatePopover');
+    var popStr = "";
+    popStr = popStr + "<h5> Cart for your items in my shopping cart </h5><div class='mx-2 my-2'>";
+    var i = 1;
+    for (var item in cart) {
+        popStr = popStr + "<b>" + i + "</b>. ";
+        popStr = popStr + document.getElementById('name' + item).innerHTML.slice(0, 19) + "... Qty: " + cart[item][0] + '<br>';
+        i = i + 1;
+    }
+    if(i != 1){
+
+    popStr = popStr + "</div> <a href='/checkout'><button class='btn btn-primary' id ='checkout'>Checkout</button></a> <button class='btn btn-primary' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
+    console.log(popStr);
+    }else{
+        popStr ="</div> <b><span style='color:red'>YOUR CART IS EMPTY</span></b>  "
+
+    }
+    document.getElementById('popcart').setAttribute('data-content', popStr);
+    $('#popcart').popover('show');
+
+}
+
+function clearCart() {
+    cart = JSON.parse(localStorage.getItem('cart'));
+    for (var item in cart) {
+        document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-primary cart">Add To Cart</button>'
+    }
+    localStorage.clear();
+    cart = {};
+    updateCart(cart);
+
+
+}
+
+function updateCart(cart) {
+    var sum = 0;
+    for (var item in cart) {
+        sum = sum + cart[item][0];
+        document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-primary minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-primary plus'> + </button>";
+
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    document.getElementById('cart').innerHTML = sum;
+    console.log(cart);
+    updatePopover(cart);
+}
+
+// If plus or minus button is clicked, change the cart as well as the display value
+$('.divpr').on("click", "button.minus", function() {
+    a = this.id.slice(7, );
+    cart['pr' + a][0] = cart['pr' + a][0] - 1;
+    cart['pr' + a][0] = Math.max(0, cart['pr' + a][0]);
+    if (cart['pr' + a][0] == 0){
+        document.getElementById('divpr' + a).innerHTML = '<button id="pr'+a+'" class="btn btn-primary cart">Add to Cart</button>';
+        delete cart['pr'+a];
+    }
+    else{
+        document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    }
+    updateCart(cart);
+
+});
+
+$('.divpr').on("click", "button.plus", function() {
+    a = this.id.slice(6, );
+    cart['pr' + a][0] = cart['pr' + a][0] + 1;
+    document.getElementById('valpr' + a).innerHTML = cart['pr' + a][0];
+    updateCart(cart);
+});
+</script>
+
+<script>
+	/* counter js */
+
+(function ($) {
+	$.fn.countTo = function (options) {
+		options = options || {};
+		
+		return $(this).each(function () {
+			// set options for current element
+			var settings = $.extend({}, $.fn.countTo.defaults, {
+				from:            $(this).data('from'),
+				to:              $(this).data('to'),
+				speed:           $(this).data('speed'),
+				refreshInterval: $(this).data('refresh-interval'),
+				decimals:        $(this).data('decimals')
+			}, options);
+			
+			// how many times to update the value, and how much to increment the value on each update
+			var loops = Math.ceil(settings.speed / settings.refreshInterval),
+				increment = (settings.to - settings.from) / loops;
+			
+			// references & variables that will change with each update
+			var self = this,
+				$self = $(this),
+				loopCount = 0,
+				value = settings.from,
+				data = $self.data('countTo') || {};
+			
+			$self.data('countTo', data);
+			
+			// if an existing interval can be found, clear it first
+			if (data.interval) {
+				clearInterval(data.interval);
+			}
+			data.interval = setInterval(updateTimer, settings.refreshInterval);
+			
+			// initialize the element with the starting value
+			render(value);
+			
+			function updateTimer() {
+				value += increment;
+				loopCount++;
+				
+				render(value);
+				
+				if (typeof(settings.onUpdate) == 'function') {
+					settings.onUpdate.call(self, value);
+				}
+				
+				if (loopCount >= loops) {
+					// remove the interval
+					$self.removeData('countTo');
+					clearInterval(data.interval);
+					value = settings.to;
+					
+					if (typeof(settings.onComplete) == 'function') {
+						settings.onComplete.call(self, value);
+					}
+				}
+			}
+			
+			function render(value) {
+				var formattedValue = settings.formatter.call(self, value, settings);
+				$self.html(formattedValue);
+			}
+		});
+	};
+	
+	$.fn.countTo.defaults = {
+		from: 0,               // the number the element should start at
+		to: 0,                 // the number the element should end at MD
+		speed: 1000,           // how long it should take to count between the target numbers
+		refreshInterval: 100,  // how often the element should be updated
+		decimals: 0,           // the number of decimal places to show
+		formatter: formatter,  // handler for formatting the value before rendering
+		onUpdate: null,        // callback method for every time the element is updated
+		onComplete: null       // callback method for when the element finishes updating
+	};
+	
+	function formatter(value, settings) {
+		return value.toFixed(settings.decimals);
+	}
+}(jQuery));
+
+jQuery(function ($) {
+  // custom formatting example
+  $('.count-number').data('countToOptions', {
+	formatter: function (value, options) {
+	  return value.toFixed(options.decimals).replace(/\B(?=(?:\d{3})+(?!\d))/g, ',');
+	}
+  });
+  
+  // start all the timers
+  $('.timer').each(count);  
+  
+  function count(options) {
+	var $this = $(this);
+	options = $.extend({}, options || {}, $this.data('countToOptions') || {});
+	$this.countTo(options);
+  }
+});
+	</script>
+
+
+</body>
+
+</html>
